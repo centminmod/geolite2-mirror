@@ -49,6 +49,7 @@ jobs:
         token: ${{ secrets.BOT_GITHUB_TOKEN }}
         files: |
           Geolite2*
+          upload/*.tar.gz
           upload/*.zip
           upload/*.mmdb
           upload/GeoLite2-ASN*.csv
