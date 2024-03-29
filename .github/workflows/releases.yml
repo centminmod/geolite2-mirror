@@ -11,11 +11,15 @@ jobs:
     steps:
     - name: Download GeoLite.mmdb
       run: |
-        wget -nv -O- "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-ASN&license_key=${{ secrets.MAXMIND_KEY }}&suffix=tar.gz" | tar zxv
-        wget -nv -O- "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=${{ secrets.MAXMIND_KEY }}&suffix=tar.gz" | tar zxv
-        wget -nv -O- "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country&license_key=${{ secrets.MAXMIND_KEY }}&suffix=tar.gz" | tar zxv
+        wget -nv -O GeoLite2-ASN.tar.gz "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-ASN&license_key=${{ secrets.MAXMIND_KEY }}&suffix=tar.gz"
+        wget -nv -O GeoLite2-City.tar.gz "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=${{ secrets.MAXMIND_KEY }}&suffix=tar.gz"
+        wget -nv -O GeoLite2-Country.tar.gz "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country&license_key=${{ secrets.MAXMIND_KEY }}&suffix=tar.gz"
         mkdir -p upload
-        cp -v GeoLite*/*.mmdb upload
+        cp -v *.tar.gz upload/
+        tar zxvf GeoLite2-ASN.tar.gz
+        tar zxvf GeoLite2-City.tar.gz
+        tar zxvf GeoLite2-Country.tar.gz
+        cp -v GeoLite*/*.mmdb upload/
     - name: Download GeoLite.csv
       run: |
         wget -nv -O GeoLite2-ASN-CSV.zip "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-ASN-CSV&license_key=${{ secrets.MAXMIND_KEY }}&suffix=zip"
